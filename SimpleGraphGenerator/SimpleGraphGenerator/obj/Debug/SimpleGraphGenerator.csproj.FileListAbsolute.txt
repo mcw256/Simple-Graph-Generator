@@ -13,3 +13,4 @@ E:\Programowanie\C#\mcw256\SimpleGraphGenerator\SimpleGraphGenerator\SimpleGraph
 E:\Programowanie\C#\mcw256\SimpleGraphGenerator\SimpleGraphGenerator\SimpleGraphGenerator\obj\Debug\SimpleGraphGenerator.pdb
 E:\Programowanie\C#\mcw256\SimpleGraphGenerator\SimpleGraphGenerator\SimpleGraphGenerator\obj\Debug\Views\MainWindow.g.cs
 E:\Programowanie\C#\mcw256\SimpleGraphGenerator\SimpleGraphGenerator\SimpleGraphGenerator\obj\Debug\Views\MainWindow.baml
+E:\Programowanie\C#\mcw256\SimpleGraphGenerator\SimpleGraphGenerator\SimpleGraphGenerator\obj\Debug\GeneratedInternalTypeHelper.g.cs

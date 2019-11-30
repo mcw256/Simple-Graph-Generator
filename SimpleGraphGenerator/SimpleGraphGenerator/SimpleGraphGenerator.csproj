@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\Scene.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,7 +63,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BusinessLogic\ViewModelDataUpdater.cs" />
+    <Compile Include="BusinessLogic\AdjacentMatrixSupplier.cs" />
+    <Compile Include="BusinessLogic\FillBottomHalf.cs" />
+    <Compile Include="BusinessLogic\FillDiagonal.cs" />
+    <Compile Include="BusinessLogic\FillWithGivenProb.cs" />
+    <Compile Include="BusinessLogic\IAdjacentMatrixOperations.cs" />
     <Compile Include="ViewModels\Commands\GenerateGraphCommand.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -97,6 +102,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\SceneUtils\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
