@@ -11,7 +11,7 @@ namespace SimpleGraphGenerator.BusinessLogic
     {
         public void OperateOn(int[,] adjMatrix)
         {
-            for (int i = 0; i < adjMatrix.Length; i++)
+            for (int i = 0; i < adjMatrix.GetLength(0); i++)
                 adjMatrix[i, i] = 0;
         }
     }

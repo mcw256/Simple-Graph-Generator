@@ -14,13 +14,17 @@ namespace SimpleGraphGenerator.Views.SceneUtils
         {
             var result = new List<Line>();
 
-            for (int i = 0; i < adjMatrix.Length; i++)
+            for (int i = 0; i < adjMatrix.GetLength(0); i++)
             {
-                for (int j = i + 1; j < adjMatrix.Length; j++)
+                for (int j = i + 1; j < adjMatrix.GetLength(1); j++)
                 {
-                    var line = new Line();
-                    line.Name = $"{i + 1}to{j + 1}";
-                    result.Add(line);
+                    if(adjMatrix[i,j] == 1)
+                    {
+                        var line = new Line();
+                        line.Name = $"v{i + 1}to{j + 1}";
+                        result.Add(line);
+                    }
+                   
                 }
             }
             return result;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,12 +46,47 @@ namespace SimpleGraphGenerator.Views.SceneUtils
 
         }
 
-
-
-        public static void ArrangeEdges(List<Line> edges)
+        public static void ArrangeEdges(List<Line> edges, List<Label> vertexes)
         {
+            for (int i = 0; i < edges.Count; i++)
+            {
+                var edgeName = edges[i].Name.TrimStart('v');
+                var beginingAndEnd = Regex.Split(edgeName, "to");
+                string beg = beginingAndEnd[0];
+                string end = beginingAndEnd[1];
 
+                Point begCoords = new Point();
+                var begVertex = vertexes.First(x => x.Name == $"v{beg}");
+                begCoords.X = Canvas.GetLeft(begVertex)+13;
+                begCoords.Y = Canvas.GetBottom(begVertex)+13;
 
+                Point endCords = new Point();
+                var endVertex = vertexes.First(x => x.Name == $"v{end}");
+                endCords.X = Canvas.GetLeft(endVertex)+13;
+                endCords.Y = Canvas.GetBottom(endVertex)+13;
+
+                ShapesPropertiesSetters.SetEdgeProperties(edges[i], (int)begCoords.X, (int)begCoords.Y, (int)endCords.X, (int)endCords.Y);
+            }
+        }
+
+        public static void ArrangeSingleEdge(Line edge, List<Label> vertexes)
+        {
+            var edgeName = edge.Name.TrimStart('v');
+            var beginingAndEnd = Regex.Split(edgeName, "to");
+            string beg = beginingAndEnd[0];
+            string end = beginingAndEnd[1];
+
+            Point begCoords = new Point();
+            var begVertex = vertexes.First(x => x.Name == $"v{beg}");
+            begCoords.X = Canvas.GetLeft(begVertex) - 13;
+            begCoords.Y = Canvas.GetBottom(begVertex) - 13;
+
+            Point endCords = new Point();
+            var endVertex = vertexes.First(x => x.Name == $"v{end}");
+            endCords.X = Canvas.GetLeft(endVertex) - 13;
+            endCords.Y = Canvas.GetBottom(endVertex) - 13;
+
+            ShapesPropertiesSetters.SetEdgeProperties(edge, (int)begCoords.X, (int)begCoords.Y, (int)endCords.X, (int)endCords.Y);
 
         }
 
@@ -59,7 +95,6 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             ShapesPropertiesSetters.SetSettingEllProperties(settingElls[0], 10, 10);
             ShapesPropertiesSetters.SetSettingEllProperties(settingElls[1], 340, 340);
         }
-
 
     }
 }

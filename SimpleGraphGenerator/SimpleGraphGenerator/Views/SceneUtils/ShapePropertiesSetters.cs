@@ -30,6 +30,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
         {
             vertex.Style = Application.Current.FindResource("Vertex") as Style;
             vertex.Content = name;
+            vertex.Name = $"v{name}";
 
             Canvas.SetLeft(vertex, leftX);
             Canvas.SetBottom(vertex, bottomY);

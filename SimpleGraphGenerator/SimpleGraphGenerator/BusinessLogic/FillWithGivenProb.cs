@@ -16,10 +16,13 @@ namespace SimpleGraphGenerator.BusinessLogic
 
         public void OperateOn(int[,] adjMatrix)
         {
+            int fuck = adjMatrix.GetLength(0);
+            int fuckmehard = adjMatrix.GetLength(1);
+
             Random rand = new Random(Guid.NewGuid().GetHashCode());
-            for (int i = 0; i < adjMatrix.Length; i++) //rows
+            for (int i = 0; i < adjMatrix.GetLength(0); i++) //rows
             {
-                for (int j = i+1; j < adjMatrix.Length; j++) //columns
+                for (int j = i+1; j < adjMatrix.GetLength(1); j++) //columns
                 {
                     if (rand.NextDouble() < _prob)
                         adjMatrix[i, j] = 1;
