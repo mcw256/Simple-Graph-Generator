@@ -12,7 +12,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
 {
     static class ShapePositioners
     {
-        public static void ArrangeVertexesRandomly(List<Label> vertexes, List<Ellipse> settingElls)
+        public static void ArrangeVertexesRandomly(List<Vertex> vertexes, List<Ellipse> settingElls)
         {
             var rand = new Random(Guid.NewGuid().GetHashCode());
 
@@ -46,7 +46,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
 
         }
 
-        public static void ArrangeEdges(List<Line> edges, List<Label> vertexes)
+        public static void ArrangeEdges(List<Line> edges, List<Vertex> vertexes)
         {
             for (int i = 0; i < edges.Count; i++)
             {
@@ -69,7 +69,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             }
         }
 
-        public static void ArrangeSingleEdge(Line edge, List<Label> vertexes)
+        public static void ArrangeSingleEdge(Line edge, List<Vertex> vertexes)
         {
             var edgeName = edge.Name.TrimStart('v');
             var beginingAndEnd = Regex.Split(edgeName, "to");
@@ -94,6 +94,27 @@ namespace SimpleGraphGenerator.Views.SceneUtils
         {
             ShapesPropertiesSetters.SetSettingEllProperties(settingElls[0], 10, 10);
             ShapesPropertiesSetters.SetSettingEllProperties(settingElls[1], 340, 340);
+        }
+
+        public static void LinkEdgesToVertexes(List<Vertex> vertexes, List<Line> edges)
+        {
+            if (edges.Count == 0) return;
+
+            foreach (var edge in edges)
+            {
+                var edgeName = edge.Name.TrimStart('v');
+                var beginingAndEnd = Regex.Split(edgeName, "to");
+                string beg = beginingAndEnd[0];
+                string end = beginingAndEnd[1];
+
+                var begVertex = vertexes.First(x => x.Name == $"v{beg}");
+                var endVertex = vertexes.First(x => x.Name == $"v{end}");
+
+                begVertex.LinkedEdges.Add(new LineWithInfo(edge, true));
+                endVertex.LinkedEdges.Add(new LineWithInfo(edge, false));
+            }
+
+
         }
 
     }

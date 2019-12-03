@@ -30,12 +30,12 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             return result;
         }
 
-        public static List<Label> CreateVertexes(int n)
+        public static List<Vertex> CreateVertexes(int n)
         {
-            var result = new List<Label>();
+            var result = new List<Vertex>();
 
             for (int i = 0; i < n; i++)
-                result.Add(new Label());
+                result.Add(new Vertex());
 
             return result;
         }

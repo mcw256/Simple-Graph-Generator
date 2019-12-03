@@ -26,7 +26,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
         }
 
 
-        public static void SetVertexProperties(Label vertex, int leftX, int bottomY, string name)
+        public static void SetVertexProperties(Vertex vertex, int leftX, int bottomY, string name)
         {
             vertex.Style = Application.Current.FindResource("Vertex") as Style;
             vertex.Content = name;

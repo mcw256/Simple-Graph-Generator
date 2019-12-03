@@ -59,6 +59,7 @@
     <Compile Include="Views\SceneUtils\ShapePositioners.cs" />
     <Compile Include="Views\SceneUtils\ShapePropertiesSetters.cs" />
     <Compile Include="Views\SceneUtils\MyExtensionMethods.cs" />
+    <Compile Include="Views\SceneUtils\Vertex.cs" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

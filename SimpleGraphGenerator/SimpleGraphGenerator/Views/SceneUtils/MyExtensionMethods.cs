@@ -21,12 +21,12 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             return result;
         }
 
-        public static Point GetCenter(this Label label)
+        public static Point GetCenter(this Vertex vertex)
         {
             var result = new Point();
 
-            result.X = Canvas.GetLeft(label) + (label.Width / 2);
-            result.Y = Canvas.GetBottom(label) + (label.Height / 2);
+            result.X = Canvas.GetLeft(vertex) + (vertex.Width / 2);
+            result.Y = Canvas.GetBottom(vertex) + (vertex.Height / 2);
 
             return result;
         }
