@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SimpleGraphGenerator.ViewModels.Commands
+namespace SimpleGraphGenerator.ViewModels
 {
     class SimpleCommand : ICommand
     {

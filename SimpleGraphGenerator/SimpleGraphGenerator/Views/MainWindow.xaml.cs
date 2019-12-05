@@ -24,7 +24,7 @@ namespace SimpleGraphGenerator.Views
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(MyScene);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils;
 
 namespace SimpleGraphGenerator.Views.SceneUtils
 {
@@ -27,7 +28,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
                 int helper = (int)Math.Sqrt((settEllRadius * settEllRadius) - ((x - settEllCenter.X) * (x - settEllCenter.X))); // calculate Y so the point is on the circle
                 int y = sign * helper + (int)settEllCenter.Y;
 
-                ShapesPropertiesSetters.SetVertexProperties(vertexes[i], x - 13, y - 13, $"{i + 1}"); // -13 to fix the position so we place it at the center
+                ShapesSetters.SetVertexProperties(vertexes[i], x - 13, y - 13, $"{i + 1}"); // -13 to fix the position so we place it at the center
             }
 
             // arrange half of the vertexes on first setting ellipse
@@ -41,7 +42,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
                 int helper = (int)Math.Sqrt((settEllRadius * settEllRadius) - ((x - settEllCenter.X) * (x - settEllCenter.X))); // calculate Y so the point is on the circle
                 int y = sign * helper + (int)settEllCenter.Y;
 
-                ShapesPropertiesSetters.SetVertexProperties(vertexes[i], x - 13, y - 13, $"{i + 1}"); // -13 to fix the position so we place it at the center
+                ShapesSetters.SetVertexProperties(vertexes[i], x - 13, y - 13, $"{i + 1}"); // -13 to fix the position so we place it at the center
             }
 
         }
@@ -65,7 +66,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
                 endCords.X = Canvas.GetLeft(endVertex)+13;
                 endCords.Y = Canvas.GetBottom(endVertex)+13;
 
-                ShapesPropertiesSetters.SetEdgeProperties(edges[i], (int)begCoords.X, (int)begCoords.Y, (int)endCords.X, (int)endCords.Y);
+                ShapesSetters.SetEdgeProperties(edges[i], (int)begCoords.X, (int)begCoords.Y, (int)endCords.X, (int)endCords.Y);
             }
         }
 
@@ -86,14 +87,14 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             endCords.X = Canvas.GetLeft(endVertex) - 13;
             endCords.Y = Canvas.GetBottom(endVertex) - 13;
 
-            ShapesPropertiesSetters.SetEdgeProperties(edge, (int)begCoords.X, (int)begCoords.Y, (int)endCords.X, (int)endCords.Y);
+            ShapesSetters.SetEdgeProperties(edge, (int)begCoords.X, (int)begCoords.Y, (int)endCords.X, (int)endCords.Y);
 
         }
 
         public static void ArrangeSettingElls(List<Ellipse> settingElls)
         {
-            ShapesPropertiesSetters.SetSettingEllProperties(settingElls[0], 10, 10);
-            ShapesPropertiesSetters.SetSettingEllProperties(settingElls[1], 340, 340);
+            ShapesSetters.SetSettingEllProperties(settingElls[0], 10, 10);
+            ShapesSetters.SetSettingEllProperties(settingElls[1], 340, 340);
         }
 
         public static void LinkEdgesToVertexes(List<Vertex> vertexes, List<Line> edges)

@@ -15,62 +15,84 @@ namespace SimpleGraphGenerator.Views
 {
     class Scene : Canvas 
     {
+        int[,] _adjMatirx;
+        List<Ellipse> _settingElls;
+        List<Vertex> _vertexes;
+        List<Line> _edges;
+
+
         public Scene()
         {
             this.Width = 750;
-            this.Height = 750;
-            
+            this.Height = 750; 
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ecf4ef"));
 
-            var adjMatrix = AdjacentMatrixSupplier.Supply(15);
-
-            IAdjacentMatrixOperations operation = new FillWithGivenProb(0.3);
-            operation.OperateOn(adjMatrix);
-
-            operation = new FillDiagonal();
-            operation.OperateOn(adjMatrix);
-
-            operation = new FillBottomHalf();
-            operation.OperateOn(adjMatrix);
-
-
-            var vertexes = Creators.CreateVertexes(15);
-            var settingElls = Creators.CreateSettingElls();
-            var edges = Creators.CreateEdgesFromAdjMatrix(adjMatrix);
-
-
-            ShapePositioners.ArrangeSettingElls(settingElls);
-            ShapePositioners.ArrangeVertexesRandomly(vertexes, settingElls);
-            ShapePositioners.ArrangeEdges(edges, vertexes);
-            ShapePositioners.LinkEdgesToVertexes(vertexes, edges);
-
-            foreach (var item in vertexes)
-            {
-                item.MouseLeftButtonDown += VertexMouseLeftButtonDown;
-                item.MouseLeftButtonUp += VertexMouseLeftButtonUp;
-                item.MouseMove += VertexMouseMove;
-            }
             
 
 
-            for (int i = 0; i < settingElls.Count; i++)
-            {
-                this.Children.Add(settingElls[i]);
-            }
-            for (int i = 0; i < edges.Count; i++)
-            {
-                this.Children.Add(edges[i]);
-            }
+            //var vertexes = Creators.CreateVertexes(15);
+            //var settingElls = Creators.CreateSettingElls();
+            //var edges = Creators.CreateEdgesFromAdjMatrix(_adjMatrix);
 
-            for (int i = 0; i < vertexes.Count; i++)
-            {
-                this.Children.Add(vertexes[i]);
-            }       
+
+            //ShapePositioners.ArrangeSettingElls(settingElls);
+            //ShapePositioners.ArrangeVertexesRandomly(vertexes, settingElls);
+            //ShapePositioners.ArrangeEdges(edges, vertexes);
+            //ShapePositioners.LinkEdgesToVertexes(vertexes, edges);
+
+            //foreach (var item in vertexes)
+            //{
+            //    item.MouseLeftButtonDown += VertexMouseLeftButtonDown;
+            //    item.MouseLeftButtonUp += VertexMouseLeftButtonUp;
+            //    item.MouseMove += VertexMouseMove;
+            //}
+            
+            //for (int i = 0; i < settingElls.Count; i++)
+            //{
+            //    this.Children.Add(settingElls[i]);
+            //}
+            //for (int i = 0; i < edges.Count; i++)
+            //{
+            //    this.Children.Add(edges[i]);
+            //}
+
+            //for (int i = 0; i < vertexes.Count; i++)
+            //{
+            //    this.Children.Add(vertexes[i]);
+            //}       
         }
 
+        #region public methods
+        public void DrawNewGraph(double prob)
+        {
+            _adjMatirx = AdjacentMatrix.Create(15);
+            AdjacentMatrix.FillWithGivenProbability(_adjMatirx, prob);
+            AdjacentMatrix.FillDiagonalWithZeros(_adjMatirx);
+            AdjacentMatrix.FillLeftBottomHalf(_adjMatirx);
+
+            _settingElls = Creators.CreateSettingElls();
+            _vertexes = Creators.CreateVertexes(15);
+            _edges = Creators.CreateEdgesFromAdjMatrix(_adjMatirx);
+
+            ShapePositioners.ArrangeSettingElls(_settingElls);
+            ShapePositioners.ArrangeVertexesRandomly(_vertexes, _settingElls);
+            ShapePositioners.ArrangeEdges(_edges, _vertexes);
+            ShapePositioners.LinkEdgesToVertexes(_vertexes, _edges);
+
+            foreach (var item in _settingElls)
+                this.Children.Add(item);
+
+            foreach (var item in _vertexes)
+                this.Children.Add(item);
+
+            foreach (var item in _edges)
+                this.Children.Add(item);
+
+        }
+        #endregion
 
 
-
+        #region dragging event handlers
         bool _isVertexDragInProg;
         private void VertexMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -112,7 +134,6 @@ namespace SimpleGraphGenerator.Views
             }
 
         }
-
-       
+        #endregion
     }
 }

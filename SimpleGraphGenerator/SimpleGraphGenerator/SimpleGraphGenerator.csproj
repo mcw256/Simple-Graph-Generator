@@ -54,10 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BusinessLogic\AdjacentMatrix.cs" />
     <Compile Include="Views\Scene.cs" />
     <Compile Include="Views\SceneUtils\Creators.cs" />
     <Compile Include="Views\SceneUtils\ShapePositioners.cs" />
-    <Compile Include="Views\SceneUtils\ShapePropertiesSetters.cs" />
+    <Compile Include="Views\SceneUtils\ShapePostionersUtils\ShapePropertiesSetters.cs" />
     <Compile Include="Views\SceneUtils\MyExtensionMethods.cs" />
     <Compile Include="Views\SceneUtils\Vertex.cs" />
     <Page Include="Views\MainWindow.xaml">
@@ -68,12 +69,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BusinessLogic\AdjacentMatrixSupplier.cs" />
-    <Compile Include="BusinessLogic\FillBottomHalf.cs" />
-    <Compile Include="BusinessLogic\FillDiagonal.cs" />
-    <Compile Include="BusinessLogic\FillWithGivenProb.cs" />
-    <Compile Include="BusinessLogic\IAdjacentMatrixOperations.cs" />
-    <Compile Include="ViewModels\Commands\GenerateGraphCommand.cs" />
+    <Compile Include="ViewModels\SimpleCommand.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

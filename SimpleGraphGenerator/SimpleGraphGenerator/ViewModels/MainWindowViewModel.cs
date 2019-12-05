@@ -1,4 +1,5 @@
-﻿using SimpleGraphGenerator.ViewModels.Commands;
+﻿using SimpleGraphGenerator.ViewModels;
+using SimpleGraphGenerator.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,18 @@ namespace SimpleGraphGenerator.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel()
+        #region contructor
+        public MainWindowViewModel(Scene myScene)
         {
             GenerateGraphCommand = new SimpleCommand(GenerateGraphCommandHandler);
+            _myScene = myScene;
             //link to some business model updater
         }
+        #endregion
+
+        #region fields
+        Scene _myScene;
+        #endregion
 
         #region properties
         private int _edgesAmount;
@@ -55,7 +63,6 @@ namespace SimpleGraphGenerator.ViewModels
             }
         }
 
-
         #endregion
 
         #region commands
@@ -65,7 +72,7 @@ namespace SimpleGraphGenerator.ViewModels
         #region command handlers
         void GenerateGraphCommandHandler()
         {
-            //do stuff
+           // myScene
 
 
         }

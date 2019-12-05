@@ -8,11 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace SimpleGraphGenerator.Views.SceneUtils
+namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
 {
-    static class ShapesPropertiesSetters
-    {
-        
+    static class ShapesSetters
+    {    
         public static void SetSettingEllProperties(Ellipse setEll,int leftX, int bottomY)
         {
             setEll.Width = 400;
@@ -24,7 +23,6 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             Canvas.SetLeft(setEll, leftX);
             Canvas.SetBottom(setEll, bottomY);
         }
-
 
         public static void SetVertexProperties(Vertex vertex, int leftX, int bottomY, string name)
         {
@@ -49,6 +47,5 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             edge.Opacity = 0.85;
 
         }
-
     }
 }
