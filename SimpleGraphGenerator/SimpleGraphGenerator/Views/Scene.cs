@@ -26,9 +26,6 @@ namespace SimpleGraphGenerator.Views
             this.Width = 750;
             this.Height = 750; 
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ecf4ef"));
-
-
-            
         }
 
         #region public methods
@@ -77,6 +74,48 @@ namespace SimpleGraphGenerator.Views
 
             return _edges.Count;
         }
+
+        public void RerollVertexesLocations()
+        {
+            //clean up
+            this.Children.Clear();
+
+            ShapePositioners.ArrangeVertexesRandomly(_vertexes, _settingElls);
+            ShapePositioners.ArrangeEdges(_edges, _vertexes);
+            ShapePositioners.LinkEdgesToVertexes(_vertexes, _edges);
+
+            //Add elements to the scene
+            foreach (var item in _settingElls)
+                this.Children.Add(item);
+
+            foreach (var item in _edges)
+                this.Children.Add(item);
+
+            foreach (var item in _vertexes)
+                this.Children.Add(item);
+        }
+
+        public void SpaceVertexesEvenly()
+        {
+            //clean up
+            this.Children.Clear();
+
+            ShapePositioners.ArrangeVertexesEvenly(_vertexes, _settingElls);
+            ShapePositioners.ArrangeEdges(_edges, _vertexes);
+            ShapePositioners.LinkEdgesToVertexes(_vertexes, _edges);
+
+            //Add elements to the scene
+            foreach (var item in _settingElls)
+                this.Children.Add(item);
+
+            foreach (var item in _edges)
+                this.Children.Add(item);
+
+            foreach (var item in _vertexes)
+                this.Children.Add(item);
+
+        }
+
         #endregion
 
         #region dragging event handlers

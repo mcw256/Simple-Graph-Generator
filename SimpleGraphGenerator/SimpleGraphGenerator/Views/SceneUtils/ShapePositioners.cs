@@ -15,15 +15,15 @@ namespace SimpleGraphGenerator.Views.SceneUtils
     {
         public static void ArrangeVertexesRandomly(List<Vertex> vertexes, List<Ellipse> settingElls)
         {
-            int halfwayThroughVertexes = (int)Math.Floor(vertexes.Count / 2.0);
+            int halfway = (int)Math.Floor(vertexes.Count / 2.0);
 
             var rand = new Random(Guid.NewGuid().GetHashCode());
 
             // arrange half of the vertexes on first setting ellipse
             var settEllCenter = settingElls[0].GetCenter();
             var settEllRadius = settingElls[0].GetRadius();
-            //place first seven
-            for (int i = 0; i < halfwayThroughVertexes; i++)
+
+            for (int i = 0; i < halfway; i++)
             {
                 int sign = rand.NextDouble() > 0.5 ? (-1) : 1; // random number to decide whether to position on top or bottom half of the ellipse
                 int x = rand.Next((int)settEllCenter.X - settEllRadius, (int)settEllCenter.X + settEllRadius); // random X in [begining of the ellipse, end of the ellipse]
@@ -36,8 +36,8 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             // arrange half of the vertexes on first setting ellipse
             settEllCenter = settingElls[1].GetCenter();
             settEllRadius = settingElls[1].GetRadius();
-            //place second eight
-            for (int i = halfwayThroughVertexes; i < vertexes.Count; i++)
+  
+            for (int i = halfway; i < vertexes.Count; i++)
             {
                 int sign = rand.NextDouble() > 0.5 ? (-1) : 1; // random number to decide whether to position on top or bottom half of the ellipse
                 int x = rand.Next((int)settEllCenter.X - settEllRadius, (int)settEllCenter.X + settEllRadius); // random X in [begining of the ellipse, end of the ellipse]
@@ -45,6 +45,36 @@ namespace SimpleGraphGenerator.Views.SceneUtils
                 int y = sign * helper + (int)settEllCenter.Y;
 
                 ShapesSetters.SetVertexProperties(vertexes[i], x - 13, y - 13, $"{i + 1}"); // -13 to fix the position so we place it at the center
+            }
+
+        }
+
+        public static void ArrangeVertexesEvenly(List<Vertex> vertexes, List<Ellipse> settingElls)
+        {
+            int halfway = (int)Math.Floor(vertexes.Count / 2.0);
+            // arrange frist half of the vertexes on first setting ellipse
+            var settEllCenter = settingElls[0].GetCenter();
+            var settEllRadius = settingElls[0].GetRadius();
+            var inc = 2 * Math.PI / halfway;
+
+            for (int i = 0; i < halfway; i++)
+            {
+                var x = settEllCenter.X + settEllRadius * Math.Cos(0 + i * inc);
+                var y = settEllCenter.Y + settEllRadius * Math.Sin(0 + i * inc);
+
+                ShapesSetters.SetVertexProperties(vertexes[i], (int)x - 13, (int)y - 13, $"{i + 1}"); // -13 to fix the position so we place it at the center
+
+            }
+            // arrange second half of the vertexes on first setting ellipse
+            settEllCenter = settingElls[1].GetCenter();
+            settEllRadius = settingElls[1].GetRadius();
+            inc = 2 * Math.PI /(vertexes.Count - halfway);
+       
+            for (int i = halfway; i < vertexes.Count; i++)
+            {
+                var x = settEllCenter.X + settEllRadius * Math.Cos(0 + i * inc);
+                var y = settEllCenter.Y + settEllRadius * Math.Sin(0 + i * inc);
+                ShapesSetters.SetVertexProperties(vertexes[i], (int)x - 13, (int)y - 13, $"{i + 1}"); // -13 to fix the position so we place it at the center  
             }
 
         }
@@ -60,13 +90,13 @@ namespace SimpleGraphGenerator.Views.SceneUtils
 
                 Point begCoords = new Point();
                 var begVertex = vertexes.First(x => x.Name == $"v{beg}");
-                begCoords.X = Canvas.GetLeft(begVertex)+13;
-                begCoords.Y = Canvas.GetBottom(begVertex)+13;
+                begCoords.X = Canvas.GetLeft(begVertex) + 13;
+                begCoords.Y = Canvas.GetBottom(begVertex) + 13;
 
                 Point endCords = new Point();
                 var endVertex = vertexes.First(x => x.Name == $"v{end}");
-                endCords.X = Canvas.GetLeft(endVertex)+13;
-                endCords.Y = Canvas.GetBottom(endVertex)+13;
+                endCords.X = Canvas.GetLeft(endVertex) + 13;
+                endCords.Y = Canvas.GetBottom(endVertex) + 13;
 
                 ShapesSetters.SetEdgeProperties(edges[i], (int)begCoords.X, (int)begCoords.Y, (int)endCords.X, (int)endCords.Y);
             }

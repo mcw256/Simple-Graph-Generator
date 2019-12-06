@@ -85,7 +85,7 @@
                     Margin="10,30,10,0"
                     Padding="5"
                     Command="{Binding GenerateGraphCommand}"
-                    Content="Generuj graf"
+                    Content="Generuj nowy graf"
                     FontSize="15">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource ManyToOneCommandParametersConverter}">
@@ -95,6 +95,16 @@
                     </Button.CommandParameter>
 
                 </Button>
+
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Rozlosuj wierzchołki" Padding="5" Command="{Binding RerollVertexesLocationsCommand}"/>
+                    <Button Content="Rozłóż rownomiernie" Padding="5" Margin="10 0 0 0" Grid.Column="1" Command="{Binding SpaceVertexesEvenlyCommand}" />
+                </Grid>
+                
 
             </StackPanel>
 

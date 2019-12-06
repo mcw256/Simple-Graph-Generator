@@ -13,7 +13,9 @@ namespace SimpleGraphGenerator.ViewModels
         #region contructor
         public MainWindowViewModel(Scene myScene)
         {
-            GenerateGraphCommand = new RelayCommand(GenerateGraphCommandHandler) ;
+            GenerateGraphCommand = new RelayCommand(GenerateGraphCommandHandler);
+            RerollVertexesLocationsCommand = new RelayCommand(RerollVertexesLocationsCommandHandler);
+            SpaceVertexesEvenlyCommand = new RelayCommand(SpaceVertexesEvenlyCommandHandler);
             _myScene = myScene;
             EdgesAmount = 0;
             VertexesAmount = 15;
@@ -70,20 +72,27 @@ namespace SimpleGraphGenerator.ViewModels
 
         #region commands
         public RelayCommand GenerateGraphCommand { get; private set; }
+        public RelayCommand RerollVertexesLocationsCommand { get; private set; }
+        public RelayCommand SpaceVertexesEvenlyCommand { get; private set; }
         #endregion
 
         #region command handlers
         void GenerateGraphCommandHandler(object paramsArray)
         {
             var values = (object[])paramsArray;
-
             double probability = (double)values[0];
-            int vertexesAmount = Convert.ToInt32(values[1]);
-
-            
+            int vertexesAmount = Convert.ToInt32(values[1]); 
             EdgesAmount = _myScene.DrawNewGraph((double)probability, (int)vertexesAmount);
+        }
 
+        void RerollVertexesLocationsCommandHandler(object obj)
+        { 
+            _myScene.RerollVertexesLocations();
+        }
 
+        void SpaceVertexesEvenlyCommandHandler(object obj)
+        {
+            _myScene.SpaceVertexesEvenly();
         }
 
         #endregion
