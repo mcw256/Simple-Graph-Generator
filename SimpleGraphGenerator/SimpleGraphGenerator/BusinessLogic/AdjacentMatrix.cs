@@ -13,7 +13,7 @@ namespace SimpleGraphGenerator.BusinessLogic
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static int[,] Create(uint n) => new int[n, n];
+        public static int[,] Create(int n) => new int[n, n];
 
         /// <summary>
         /// Fills left-boottom half of the matrix in the realtion to the other half(right-top).

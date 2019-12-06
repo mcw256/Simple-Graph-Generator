@@ -27,51 +27,28 @@ namespace SimpleGraphGenerator.Views
             this.Height = 750; 
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ecf4ef"));
 
+
             
-
-
-            //var vertexes = Creators.CreateVertexes(15);
-            //var settingElls = Creators.CreateSettingElls();
-            //var edges = Creators.CreateEdgesFromAdjMatrix(_adjMatrix);
-
-
-            //ShapePositioners.ArrangeSettingElls(settingElls);
-            //ShapePositioners.ArrangeVertexesRandomly(vertexes, settingElls);
-            //ShapePositioners.ArrangeEdges(edges, vertexes);
-            //ShapePositioners.LinkEdgesToVertexes(vertexes, edges);
-
-            //foreach (var item in vertexes)
-            //{
-            //    item.MouseLeftButtonDown += VertexMouseLeftButtonDown;
-            //    item.MouseLeftButtonUp += VertexMouseLeftButtonUp;
-            //    item.MouseMove += VertexMouseMove;
-            //}
-            
-            //for (int i = 0; i < settingElls.Count; i++)
-            //{
-            //    this.Children.Add(settingElls[i]);
-            //}
-            //for (int i = 0; i < edges.Count; i++)
-            //{
-            //    this.Children.Add(edges[i]);
-            //}
-
-            //for (int i = 0; i < vertexes.Count; i++)
-            //{
-            //    this.Children.Add(vertexes[i]);
-            //}       
         }
 
         #region public methods
-        public void DrawNewGraph(double prob)
+        /// <summary>
+        /// Draws new graph, returns amount of edges
+        /// </summary>
+        /// <param name="prob"></param>
+        /// <returns></returns>
+        public int DrawNewGraph(double prob, int vertexesAmount)
         {
-            _adjMatirx = AdjacentMatrix.Create(15);
+            //clean up
+            this.Children.Clear();
+
+            _adjMatirx = AdjacentMatrix.Create(vertexesAmount);
             AdjacentMatrix.FillWithGivenProbability(_adjMatirx, prob);
             AdjacentMatrix.FillDiagonalWithZeros(_adjMatirx);
             AdjacentMatrix.FillLeftBottomHalf(_adjMatirx);
 
             _settingElls = Creators.CreateSettingElls();
-            _vertexes = Creators.CreateVertexes(15);
+            _vertexes = Creators.CreateVertexes(vertexesAmount);
             _edges = Creators.CreateEdgesFromAdjMatrix(_adjMatirx);
 
             ShapePositioners.ArrangeSettingElls(_settingElls);
@@ -79,18 +56,28 @@ namespace SimpleGraphGenerator.Views
             ShapePositioners.ArrangeEdges(_edges, _vertexes);
             ShapePositioners.LinkEdgesToVertexes(_vertexes, _edges);
 
-            foreach (var item in _settingElls)
-                this.Children.Add(item);
-
+            //Link dragging events
             foreach (var item in _vertexes)
+            {
+                item.MouseLeftButtonDown += VertexMouseLeftButtonDown;
+                item.MouseLeftButtonUp += VertexMouseLeftButtonUp;
+                item.MouseMove += VertexMouseMove;
+            }
+
+            //Add elements to the scene
+            foreach (var item in _settingElls)
                 this.Children.Add(item);
 
             foreach (var item in _edges)
                 this.Children.Add(item);
 
+            foreach (var item in _vertexes)
+                this.Children.Add(item);
+
+
+            return _edges.Count;
         }
         #endregion
-
 
         #region dragging event handlers
         bool _isVertexDragInProg;

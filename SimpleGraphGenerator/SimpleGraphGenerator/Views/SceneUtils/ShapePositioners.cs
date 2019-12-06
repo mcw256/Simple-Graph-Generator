@@ -15,13 +15,15 @@ namespace SimpleGraphGenerator.Views.SceneUtils
     {
         public static void ArrangeVertexesRandomly(List<Vertex> vertexes, List<Ellipse> settingElls)
         {
+            int halfwayThroughVertexes = (int)Math.Floor(vertexes.Count / 2.0);
+
             var rand = new Random(Guid.NewGuid().GetHashCode());
 
             // arrange half of the vertexes on first setting ellipse
             var settEllCenter = settingElls[0].GetCenter();
             var settEllRadius = settingElls[0].GetRadius();
             //place first seven
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < halfwayThroughVertexes; i++)
             {
                 int sign = rand.NextDouble() > 0.5 ? (-1) : 1; // random number to decide whether to position on top or bottom half of the ellipse
                 int x = rand.Next((int)settEllCenter.X - settEllRadius, (int)settEllCenter.X + settEllRadius); // random X in [begining of the ellipse, end of the ellipse]
@@ -35,7 +37,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             settEllCenter = settingElls[1].GetCenter();
             settEllRadius = settingElls[1].GetRadius();
             //place second eight
-            for (int i = 7; i < 15; i++)
+            for (int i = halfwayThroughVertexes; i < vertexes.Count; i++)
             {
                 int sign = rand.NextDouble() > 0.5 ? (-1) : 1; // random number to decide whether to position on top or bottom half of the ellipse
                 int x = rand.Next((int)settEllCenter.X - settEllRadius, (int)settEllCenter.X + settEllRadius); // random X in [begining of the ellipse, end of the ellipse]

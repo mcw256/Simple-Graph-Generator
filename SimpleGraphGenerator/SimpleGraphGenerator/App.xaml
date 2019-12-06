@@ -2,12 +2,17 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SimpleGraphGenerator"
+             xmlns:valueConverters="clr-namespace:SimpleGraphGenerator.Views.Converters"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Views/SceneUtils/VertexStyleDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <valueConverters:ManyToOneCommandParametersConverter x:Key="ManyToOneCommandParametersConverter" />
+            <valueConverters:ProbabilityDoubleToStringConverter x:Key="ProbabilityDoubleToStringConverter" />
+            
         </ResourceDictionary>
         
     </Application.Resources>

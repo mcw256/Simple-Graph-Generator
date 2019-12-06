@@ -13,8 +13,11 @@ namespace SimpleGraphGenerator.ViewModels
         #region contructor
         public MainWindowViewModel(Scene myScene)
         {
-            GenerateGraphCommand = new SimpleCommand(GenerateGraphCommandHandler);
+            GenerateGraphCommand = new RelayCommand(GenerateGraphCommandHandler) ;
             _myScene = myScene;
+            EdgesAmount = 0;
+            VertexesAmount = 15;
+            Probability = 0.45;
             //link to some business model updater
         }
         #endregion
@@ -50,8 +53,8 @@ namespace SimpleGraphGenerator.ViewModels
             }
         }
 
-        private int _probability;
-        public int Probability
+        private double _probability;
+        public double Probability
         {
             get => _probability;
             set
@@ -66,13 +69,19 @@ namespace SimpleGraphGenerator.ViewModels
         #endregion
 
         #region commands
-        public SimpleCommand GenerateGraphCommand { get; private set; }
+        public RelayCommand GenerateGraphCommand { get; private set; }
         #endregion
 
         #region command handlers
-        void GenerateGraphCommandHandler()
+        void GenerateGraphCommandHandler(object paramsArray)
         {
-           // myScene
+            var values = (object[])paramsArray;
+
+            double probability = (double)values[0];
+            int vertexesAmount = Convert.ToInt32(values[1]);
+
+            
+            EdgesAmount = _myScene.DrawNewGraph((double)probability, (int)vertexesAmount);
 
 
         }

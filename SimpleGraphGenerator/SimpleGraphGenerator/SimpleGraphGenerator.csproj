@@ -55,6 +55,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLogic\AdjacentMatrix.cs" />
+    <Compile Include="Views\Converters\ManyToOneCommandParametersConverter.cs" />
+    <Compile Include="Views\Converters\ProbabilityDoubleToStringConverter.cs" />
     <Compile Include="Views\Scene.cs" />
     <Compile Include="Views\SceneUtils\Creators.cs" />
     <Compile Include="Views\SceneUtils\ShapePositioners.cs" />
@@ -69,7 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\SimpleCommand.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">

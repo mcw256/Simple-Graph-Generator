@@ -23,55 +23,78 @@
                     Content="Simple Graph Generator"
                     FontSize="25" />
                 <Separator Margin="5" />
-                <StackPanel
-                    Margin="0,20,0,20"
-                    HorizontalAlignment="Center"
-                    Orientation="Horizontal">
-                    <TextBlock FontSize="15">
-                        Liczba wierzchołków:
-                        <TextBlock Text="77" />
-                    </TextBlock>
-                    <TextBlock Margin="20,0,0,0" FontSize="15">
+
+
+                <TextBlock Margin="0 10" FontSize="15" HorizontalAlignment="Center">
                         Liczba krawędzi:
-                        <TextBlock Text="77" />
+                        <TextBlock Text="{Binding EdgesAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </TextBlock>
 
-                </StackPanel>
+
 
                 <Separator Margin="5" Opacity="0.25" />
+                
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Ilość wierzchołków: "
+                    FontSize="14"
+                    FontStyle="Italic" />
+                <Slider Name="sliderVertexes"
+                    Margin="10,0,10,0"
+                    IsMoveToPointEnabled="True"
+                    IsSnapToTickEnabled="True"
+                    TickPlacement="BottomRight"
+                    Maximum="20"
+                    Minimum="4"
+                    TickFrequency="1"
+                    Value="{Binding VertexesAmount}" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="20"
+                    Foreground="LightSeaGreen">
+                    V =
+                    <TextBlock Text="{Binding ElementName=sliderVertexes, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
+                </TextBlock>
 
+                <Separator Margin="5,15,5,10" Opacity="0.25" />
+                
                 <Label
                     HorizontalAlignment="Center"
                     Content="Prawdopodobieństwo wystąpnienia krawędzi "
-                    FontSize="12"
+                    FontSize="14"
                     FontStyle="Italic" />
-                <!--  TODO write value converter  -->
-
-
-                <Slider
-                    Name="sliderProb"
+                <Slider Name="sliderProb"
                     Margin="10,0,10,0"
+                    IsMoveToPointEnabled="True"
                     IsSnapToTickEnabled="True"
                     Maximum="1"
                     Minimum="0"
                     TickFrequency="0.01"
-                    TickPlacement="None" />
-
-
-
+                    Value="{Binding Probability}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     FontSize="20"
-                    Foreground="PaleVioletRed">
+                    Foreground="BlueViolet">
                     p =
-                    <TextBlock Text="{Binding ElementName=sliderProb, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="{Binding ElementName=sliderProb, Path=Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProbabilityDoubleToStringConverter}}" />
                 </TextBlock>
-
+                
+                <Separator Margin="5,15,5,10" Opacity="0.25" />
+                
                 <Button
-                    Margin="10,40,10,0"
+                    Margin="10,30,10,0"
                     Padding="5"
+                    Command="{Binding GenerateGraphCommand}"
                     Content="Generuj graf"
-                    FontSize="15" />
+                    FontSize="15">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource ManyToOneCommandParametersConverter}">
+                            <Binding Path="Value" ElementName="sliderProb"/>
+                            <Binding Path="Value" ElementName="sliderVertexes"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+
+                </Button>
 
             </StackPanel>
 
