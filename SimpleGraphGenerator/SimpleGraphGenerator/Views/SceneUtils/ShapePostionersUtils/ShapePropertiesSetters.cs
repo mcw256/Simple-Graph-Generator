@@ -36,7 +36,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
             Canvas.SetBottom(vertex, bottomY);
         }
 
-        public static void SetEdgeProperties(Line edge,int x1, int y1, int x2, int y2)
+        public static void SetEdgeProperties(Line edge, int x1, int y1, int x2, int y2)
         {
             edge.X1 = x1;
             edge.Y1 = 750 - y1; //gotta transform origin
@@ -44,7 +44,37 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
             edge.X2 = x2;
             edge.Y2 = 750 - y2;
 
-            edge.Stroke = new SolidColorBrush(Colors.Black);
+            switch (edge.Tag)
+            {
+                case 7:
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#85C1E9 "));
+                    break;
+
+                case 6:
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5DADE2 "));
+                    break;
+
+                case 5:
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#3498DB"));
+                    break;
+
+                case 4:
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2E86C1"));
+                    break;
+
+                case 3:
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2874A6 "));
+                    break;
+
+                case 2:
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#21618C"));
+                    break;
+
+                case 1:
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1B4F72"));
+                    break;
+
+            }
             edge.StrokeThickness = 3;
             edge.Opacity = 0.85;
 

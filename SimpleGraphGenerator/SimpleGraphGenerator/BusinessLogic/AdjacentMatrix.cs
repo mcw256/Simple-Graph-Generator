@@ -44,12 +44,13 @@ namespace SimpleGraphGenerator.BusinessLogic
         {
             if (prob < 0 || prob > 1) throw new ArgumentException("probability must be in the range [0,1]");
             Random rand = new Random(Guid.NewGuid().GetHashCode());
+            Random rand2 = new Random(Guid.NewGuid().GetHashCode());
             for (int i = 0; i < adjMatrix.GetLength(0); i++) //rows
             {
                 for (int j = i + 1; j < adjMatrix.GetLength(1); j++) //columns
                 {
                     if (rand.NextDouble() < prob)
-                        adjMatrix[i, j] = 1;
+                        adjMatrix[i, j] = rand2.Next(1,7);
                     else
                         adjMatrix[i, j] = 0;
                 }

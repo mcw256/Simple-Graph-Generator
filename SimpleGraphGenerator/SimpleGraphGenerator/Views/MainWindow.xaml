@@ -25,28 +25,32 @@
                 <Separator Margin="5" />
 
 
-                <TextBlock Margin="0 10" FontSize="15" HorizontalAlignment="Center">
-                        Liczba krawędzi:
-                        <TextBlock Text="{Binding EdgesAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </TextBlock>
+                <TextBlock
+                    Margin="0,10"
+                    HorizontalAlignment="Center"
+                    FontSize="15">
+                    Liczba krawędzi:
+                    <TextBlock Text="{Binding EdgesAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </TextBlock>
 
 
 
                 <Separator Margin="5" Opacity="0.25" />
-                
+
                 <Label
                     HorizontalAlignment="Center"
                     Content="Ilość wierzchołków: "
                     FontSize="14"
                     FontStyle="Italic" />
-                <Slider Name="sliderVertexes"
+                <Slider
+                    Name="sliderVertexes"
                     Margin="10,0,10,0"
                     IsMoveToPointEnabled="True"
                     IsSnapToTickEnabled="True"
-                    TickPlacement="BottomRight"
                     Maximum="20"
                     Minimum="4"
                     TickFrequency="1"
+                    TickPlacement="BottomRight"
                     Value="{Binding VertexesAmount}" />
                 <TextBlock
                     HorizontalAlignment="Center"
@@ -57,13 +61,14 @@
                 </TextBlock>
 
                 <Separator Margin="5,15,5,10" Opacity="0.25" />
-                
+
                 <Label
                     HorizontalAlignment="Center"
                     Content="Prawdopodobieństwo wystąpnienia krawędzi "
                     FontSize="14"
                     FontStyle="Italic" />
-                <Slider Name="sliderProb"
+                <Slider
+                    Name="sliderProb"
                     Margin="10,0,10,0"
                     IsMoveToPointEnabled="True"
                     IsSnapToTickEnabled="True"
@@ -78,7 +83,7 @@
                     p =
                     <TextBlock Text="{Binding ElementName=sliderProb, Path=Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ProbabilityDoubleToStringConverter}}" />
                 </TextBlock>
-                
+
                 <Separator Margin="5,15,5,10" Opacity="0.25" />
                 
                 <Button
@@ -89,22 +94,97 @@
                     FontSize="15">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource ManyToOneCommandParametersConverter}">
-                            <Binding Path="Value" ElementName="sliderProb"/>
-                            <Binding Path="Value" ElementName="sliderVertexes"/>
+                            <Binding ElementName="sliderProb" Path="Value" />
+                            <Binding ElementName="sliderVertexes" Path="Value" />
                         </MultiBinding>
                     </Button.CommandParameter>
 
                 </Button>
-
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Content="Rozlosuj wierzchołki" Padding="5" Command="{Binding RerollVertexesLocationsCommand}"/>
-                    <Button Content="Rozłóż rownomiernie" Padding="5" Margin="10 0 0 0" Grid.Column="1" Command="{Binding SpaceVertexesEvenlyCommand}" />
+                    <Button
+                        Padding="5"
+                        Command="{Binding RerollVertexesLocationsCommand}"
+                        Content="Rozlosuj wierzchołki" />
+                    <Button
+                        Grid.Column="1"
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Command="{Binding SpaceVertexesEvenlyCommand}"
+                        Content="Rozłóż rownomiernie" />
                 </Grid>
+
+                <Separator Margin="5,15,5,10" Opacity="0.25" />
                 
+                <Label
+                    HorizontalAlignment="Center"
+                    Content="Wagi wierzchołków:"
+                    FontSize="14"
+                    FontStyle="Italic" />
+                <Grid Height="30" Margin="10,0,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="#1B4F72"
+                        Content="1"
+                        Foreground="White" />
+                    <Label
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="#21618C"
+                        Content="2"
+                        Foreground="White" />
+                    <Label
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="#2874A6"
+                        Content="3"
+                        Foreground="White" />
+                    <Label
+                        Grid.Column="3"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="#2E86C1"
+                        Content="4"
+                        Foreground="White" />
+                    <Label
+                        Grid.Column="4"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="#3498DB"
+                        Content="5"
+                        Foreground="White" />
+                    <Label
+                        Grid.Column="5"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="#5DADE2"
+                        Content="6"
+                        Foreground="White" />
+                    <Label
+                        Grid.Column="6"
+                        VerticalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Background="#85C1E9"
+                        Content="7"
+                        Foreground="White" />
+                </Grid>
+
 
             </StackPanel>
 

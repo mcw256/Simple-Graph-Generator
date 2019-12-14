@@ -18,10 +18,11 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             {
                 for (int j = i + 1; j < adjMatrix.GetLength(1); j++)
                 {
-                    if(adjMatrix[i,j] == 1)
+                    if(adjMatrix[i,j] > 0)
                     {
                         var line = new Line();
                         line.Name = $"v{i + 1}to{j + 1}";
+                        line.Tag = adjMatrix[i, j];
                         result.Add(line);
                     }
                    
