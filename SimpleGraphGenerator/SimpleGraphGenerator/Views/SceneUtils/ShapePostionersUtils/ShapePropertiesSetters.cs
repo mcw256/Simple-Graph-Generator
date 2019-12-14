@@ -30,6 +30,8 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
             vertex.Content = name;
             vertex.Name = $"v{name}";
 
+            
+
             Canvas.SetLeft(vertex, leftX);
             Canvas.SetBottom(vertex, bottomY);
         }

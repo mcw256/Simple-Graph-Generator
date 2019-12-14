@@ -79,6 +79,7 @@ namespace SimpleGraphGenerator.Views
         {
             //clean up
             this.Children.Clear();
+            
 
             ShapePositioners.ArrangeVertexesRandomly(_vertexes, _settingElls);
             ShapePositioners.ArrangeEdges(_edges, _vertexes);
@@ -140,10 +141,10 @@ namespace SimpleGraphGenerator.Views
             var mousePos = e.GetPosition(this);
 
             // center the rect on the mouse
-            double left = mousePos.X - (((Label)sender).ActualWidth / 2);
-            double top = mousePos.Y - (((Label)sender).ActualHeight / 2);
-            Canvas.SetLeft(((Label)sender), left);
-            Canvas.SetTop(((Label)sender), top);
+            double left = mousePos.X - (((Vertex)sender).ActualWidth / 2);
+            double top = mousePos.Y - (((Vertex)sender).ActualHeight / 2);
+            Canvas.SetLeft(((Vertex)sender), left);
+            Canvas.SetBottom(((Vertex)sender), (this.ActualHeight - top)-((Vertex)sender).ActualHeight);
 
             foreach (var item in ((Vertex)sender).LinkedEdges)
             {
