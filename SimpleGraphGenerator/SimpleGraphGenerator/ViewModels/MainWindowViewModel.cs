@@ -2,6 +2,7 @@
 using SimpleGraphGenerator.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,12 @@ namespace SimpleGraphGenerator.ViewModels
             GenerateGraphCommand = new RelayCommand(GenerateGraphCommandHandler);
             RerollVertexesLocationsCommand = new RelayCommand(RerollVertexesLocationsCommandHandler);
             SpaceVertexesEvenlyCommand = new RelayCommand(SpaceVertexesEvenlyCommandHandler);
+            VertexesNames = new ObservableCollection<string>();
+
             _myScene = myScene;
             EdgesAmount = 0;
             VertexesAmount = 15;
             Probability = 0.45;
-            //link to some business model updater
         }
         #endregion
 
@@ -68,6 +70,71 @@ namespace SimpleGraphGenerator.ViewModels
             }
         }
 
+        private bool _isGraphConnected;
+        public bool IsGraphConnected
+        {
+            get => _isGraphConnected;
+            set
+            {
+                if (value == _isGraphConnected) return;
+
+                _isGraphConnected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isLoaded;
+        public bool IsLoaded
+        {
+            get => _isLoaded;
+            set
+            {
+                if (value == _isLoaded) return;
+
+                _isLoaded = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<string> _vertexesNames;
+        public ObservableCollection<string> VertexesNames
+        {
+            get => _vertexesNames;
+            set
+            {
+                _vertexesNames = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _startingVertexName;
+        public string StartingVertexName
+        {
+            get => _startingVertexName;
+            set
+            {
+                if (value == _startingVertexName) return;
+
+                _startingVertexName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _endingVertexName;
+        public string EndingVertexName
+        {
+            get => _endingVertexName;
+            set
+            {
+                if (value == _endingVertexName) return;
+
+                _endingVertexName = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
         #endregion
 
         #region commands
@@ -79,10 +146,21 @@ namespace SimpleGraphGenerator.ViewModels
         #region command handlers
         void GenerateGraphCommandHandler(object paramsArray)
         {
-            var values = (object[])paramsArray;
-            double probability = (double)values[0];
-            int vertexesAmount = Convert.ToInt32(values[1]); 
+            VertexesNames.Clear(); //clear vertexes names list
+
+            var values = (object[])paramsArray; //obtain parameters
+
+            double probability = (double)values[0]; //values[0] its probability from gui
+            int vertexesAmount = Convert.ToInt32(values[1]); //values [1] its vertexes amount from gui
+
             EdgesAmount = _myScene.DrawNewGraph((double)probability, (int)vertexesAmount);
+
+            IsLoaded = true;
+            IsGraphConnected = true;
+            for (int i = 0; i < vertexesAmount; i++)
+                VertexesNames.Add((i + 1).ToString());
+
+
         }
 
         void RerollVertexesLocationsCommandHandler(object obj)

@@ -55,6 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLogic\AdjacentMatrix.cs" />
+    <Compile Include="Views\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Views\Converters\ManyToOneCommandParametersConverter.cs" />
     <Compile Include="Views\Converters\ProbabilityDoubleToStringConverter.cs" />
     <Compile Include="Views\Scene.cs" />

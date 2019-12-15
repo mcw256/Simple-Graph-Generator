@@ -85,7 +85,7 @@
                 </TextBlock>
 
                 <Separator Margin="5,15,5,10" Opacity="0.25" />
-                
+
                 <Button
                     Margin="10,30,10,0"
                     Padding="5"
@@ -117,8 +117,80 @@
                         Content="Rozłóż rownomiernie" />
                 </Grid>
 
+
+
+
                 <Separator Margin="5,15,5,10" Opacity="0.25" />
-                
+
+                <Border
+                    Margin="5,0"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Visibility="{Binding IsLoaded, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsGraphConnected}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsGraphConnected}" Value="False">
+                                    <Setter Property="Background" Value="LightCoral" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label.Style>
+                            <Style TargetType="{x:Type Label}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsGraphConnected}" Value="True">
+                                        <Setter Property="Content" Value="Graf jest spójny" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsGraphConnected}" Value="False">
+                                        <Setter Property="Content" Value="Graf jest niespójny" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+
+
+                    </Label>
+                </Border>
+
+                <StackPanel Margin="5,5" Visibility="{Binding IsGraphConnected, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Label
+                        Margin="0,5,0,5"
+                        HorizontalAlignment="Center"
+                        Content="Najkrótsza ścieżka (algorytm Dijkstry):"
+                        FontSize="14"
+                        FontStyle="Italic" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Column="0" Margin="0,0,5,0" ItemsSource="{Binding VertexesNames, UpdateSourceTrigger=LostFocus}" SelectedItem="{Binding StartingVertexName}"/>
+                        <Label
+                            Grid.Column="1"
+                            Margin="0,0,5,0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Content="-&gt;"
+                            FontWeight="Bold" />
+                        <ComboBox Grid.Column="2" ItemsSource="{Binding VertexesNames, UpdateSourceTrigger=LostFocus}" SelectedItem="{Binding EndingVertexName}"/>
+                    </Grid>
+                    <Button
+                        Margin="0,5,0,0"
+                        Padding="5"
+                        Content="Pokaż"
+                        FontSize="12" />
+                </StackPanel>
+
+                <Separator Margin="5,15,5,10" Opacity="0.25" />
+
                 <Label
                     HorizontalAlignment="Center"
                     Content="Wagi wierzchołków:"
@@ -184,7 +256,6 @@
                         Content="7"
                         Foreground="White" />
                 </Grid>
-
 
             </StackPanel>
 
