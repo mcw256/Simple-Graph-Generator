@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SimpleGraphGenerator.ViewModels
 {
@@ -18,6 +19,7 @@ namespace SimpleGraphGenerator.ViewModels
             RerollVertexesLocationsCommand = new RelayCommand(RerollVertexesLocationsCommandHandler);
             SpaceVertexesEvenlyCommand = new RelayCommand(SpaceVertexesEvenlyCommandHandler);
             ColorShortestPathCommand = new RelayCommand(ColorShortestPathCommandHandler);
+            SaveToFileCommand = new RelayCommand(SaveToFileCommandHandler);
             VertexesNames = new ObservableCollection<string>();
 
             _myScene = myScene;
@@ -143,6 +145,7 @@ namespace SimpleGraphGenerator.ViewModels
         public RelayCommand RerollVertexesLocationsCommand { get; private set; }
         public RelayCommand SpaceVertexesEvenlyCommand { get; private set; }
         public RelayCommand ColorShortestPathCommand { get; private set; }
+        public RelayCommand SaveToFileCommand { get; private set; }
         #endregion
 
         #region command handlers
@@ -187,6 +190,12 @@ namespace SimpleGraphGenerator.ViewModels
             int end = Convert.ToInt32(values[1]);
 
             _myScene.ColorShortestPath(beg, end);
+        }
+
+        void SaveToFileCommandHandler(object obj)
+        {
+            _myScene.SaveToFile();
+            _myScene.Measure(new Size());
         }
 
         #endregion

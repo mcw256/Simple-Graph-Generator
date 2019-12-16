@@ -25,7 +25,6 @@ namespace SimpleGraphGenerator.Views.SceneUtils
                         line.Tag = adjMatrix[i, j];
                         result.Add(line);
                     }
-                   
                 }
             }
             return result;

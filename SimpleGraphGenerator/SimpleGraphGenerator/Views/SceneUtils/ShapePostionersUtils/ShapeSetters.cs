@@ -11,8 +11,8 @@ using System.Windows.Shapes;
 namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
 {
     static class ShapesSetters
-    {    
-        public static void SetSettingEllProperties(Ellipse setEll,int leftX, int bottomY)
+    {
+        public static void SetSettingEllProperties(Ellipse setEll, int leftX, int bottomY)
         {
             setEll.Width = 400;
             setEll.Height = 400;
@@ -30,7 +30,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
             vertex.Content = name;
             vertex.Name = $"v{name}";
 
-            
+
 
             Canvas.SetLeft(vertex, leftX);
             Canvas.SetBottom(vertex, bottomY);
@@ -44,6 +44,32 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
             edge.X2 = x2;
             edge.Y2 = 750 - y2;
 
+            SetEdgeColorFromTag(edge);
+
+            edge.StrokeThickness = 3;
+            edge.Opacity = 0.85;
+
+        }
+
+        public static void ResetEdgesStrokes(int[,] adjMatrix, List<Line> edges)
+        {
+            for (int i = 0; i < adjMatrix.GetLength(0); i++)
+            {
+                for (int j = i + 1; j < adjMatrix.GetLength(1); j++)
+                {
+                    if (adjMatrix[i, j] > 0)
+                    {
+                        var edge = edges.First(x => x.Name == $"v{i + 1}to{j + 1}" || x.Name == $"v{j + 1}to{i + 1}");
+                        edge.Tag = adjMatrix[i, j];
+                        SetEdgeColorFromTag(edge);
+                    }
+                }
+            }
+
+        }
+
+        private static void SetEdgeColorFromTag(Line edge)
+        {
             switch (edge.Tag)
             {
                 case 7:
@@ -77,10 +103,8 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
                 default:
                     break;
 
-
             }
-            edge.StrokeThickness = 3;
-            edge.Opacity = 0.85;
+            
 
         }
     }

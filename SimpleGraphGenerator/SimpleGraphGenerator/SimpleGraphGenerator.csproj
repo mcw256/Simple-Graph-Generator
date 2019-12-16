@@ -63,7 +63,7 @@
     <Compile Include="Views\Scene.cs" />
     <Compile Include="Views\SceneUtils\Creators.cs" />
     <Compile Include="Views\SceneUtils\ShapePositioners.cs" />
-    <Compile Include="Views\SceneUtils\ShapePostionersUtils\ShapePropertiesSetters.cs" />
+    <Compile Include="Views\SceneUtils\ShapePostionersUtils\ShapeSetters.cs" />
     <Compile Include="Views\SceneUtils\MyExtensionMethods.cs" />
     <Compile Include="Views\SceneUtils\Vertex.cs" />
     <Page Include="Views\MainWindow.xaml">

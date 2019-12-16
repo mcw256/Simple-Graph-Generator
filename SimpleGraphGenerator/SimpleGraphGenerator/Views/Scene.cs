@@ -1,8 +1,11 @@
-﻿using SimpleGraphGenerator.BusinessLogic;
+﻿using Microsoft.Win32;
+using SimpleGraphGenerator.BusinessLogic;
 using SimpleGraphGenerator.BusinessLogic.Algorithms;
 using SimpleGraphGenerator.Views.SceneUtils;
+using SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +13,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace SimpleGraphGenerator.Views
 {
-    class Scene : Canvas 
+    class Scene : Canvas
     {
         int[,] _adjMatirx;
         List<Ellipse> _settingElls;
@@ -25,7 +29,7 @@ namespace SimpleGraphGenerator.Views
         public Scene()
         {
             this.Width = 750;
-            this.Height = 750; 
+            this.Height = 750;
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ecf4ef"));
         }
 
@@ -80,7 +84,7 @@ namespace SimpleGraphGenerator.Views
         {
             //clean up
             this.Children.Clear();
-            
+
 
             ShapePositioners.ArrangeVertexesRandomly(_vertexes, _settingElls);
             ShapePositioners.ArrangeEdges(_edges, _vertexes);
@@ -120,13 +124,16 @@ namespace SimpleGraphGenerator.Views
 
         public void ColorShortestPath(int beg, int end)
         {
+            ShapesSetters.ResetEdgesStrokes(_adjMatirx, _edges);
+
             if (beg == end) return;
+
 
             var q = new DijkstraShortestPath(_adjMatirx);
             var list = q.ShortestPath(beg, end);
             foreach (var item in list)
             {
-                var edge = _edges.First(x => x.Name == $"v{item.X+1}to{item.Y+1}" || x.Name == $"v{item.Y+1}to{item.X+1}");
+                var edge = _edges.First(x => x.Name == $"v{item.X + 1}to{item.Y + 1}" || x.Name == $"v{item.Y + 1}to{item.X + 1}");
                 edge.Tag = -1;
                 edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#b700ff"));
             }
@@ -137,6 +144,58 @@ namespace SimpleGraphGenerator.Views
             var q = new ConnectivityChecker(_adjMatirx);
 
             return q.IsConnected();
+        }
+
+        public void SaveToFile()
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.FileName = $"Graph";
+            saveDialog.Filter = "png(.png)|*.png";
+            Nullable<bool> result = saveDialog.ShowDialog();
+
+
+            var path = new Uri(saveDialog.FileName);
+
+            if (path == null) return;
+
+            // Save current canvas transform
+            Transform transform = this.LayoutTransform;
+            // reset current transform (in case it is scaled or rotated)
+            this.LayoutTransform = null;
+
+            // Get the size of canvas
+            Size size = new Size(this.Width, this.Height);
+            // Measure and arrange the surface
+            // VERY IMPORTANT
+            this.Measure(size);
+            this.Arrange(new Rect(size));
+
+            // Create a render bitmap and push the surface to it
+            RenderTargetBitmap renderBitmap =
+              new RenderTargetBitmap(
+                (int)size.Width,
+                (int)size.Height,
+                96d,
+                96d,
+                PixelFormats.Pbgra32);
+            renderBitmap.Render(this);
+
+            // Create a file stream for saving image
+            using (FileStream outStream = new FileStream(path.LocalPath, FileMode.Create))
+            {
+                // Use png encoder for our data
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                // push the rendered bitmap to it
+                encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                // save the data to the stream
+                encoder.Save(outStream);
+            }
+
+            // Restore previously saved layout
+            this.LayoutTransform = transform;
+
+
+
         }
 
         #endregion
@@ -166,7 +225,7 @@ namespace SimpleGraphGenerator.Views
             double left = mousePos.X - (((Vertex)sender).ActualWidth / 2);
             double top = mousePos.Y - (((Vertex)sender).ActualHeight / 2);
             Canvas.SetLeft(((Vertex)sender), left);
-            Canvas.SetBottom(((Vertex)sender), (this.ActualHeight - top)-((Vertex)sender).ActualHeight);
+            Canvas.SetBottom(((Vertex)sender), (this.ActualHeight - top) - ((Vertex)sender).ActualHeight);
 
             foreach (var item in ((Vertex)sender).LinkedEdges)
             {
