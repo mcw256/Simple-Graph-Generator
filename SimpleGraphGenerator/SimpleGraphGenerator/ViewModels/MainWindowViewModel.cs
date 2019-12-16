@@ -17,6 +17,7 @@ namespace SimpleGraphGenerator.ViewModels
             GenerateGraphCommand = new RelayCommand(GenerateGraphCommandHandler);
             RerollVertexesLocationsCommand = new RelayCommand(RerollVertexesLocationsCommandHandler);
             SpaceVertexesEvenlyCommand = new RelayCommand(SpaceVertexesEvenlyCommandHandler);
+            ColorShortestPathCommand = new RelayCommand(ColorShortestPathCommandHandler);
             VertexesNames = new ObservableCollection<string>();
 
             _myScene = myScene;
@@ -141,6 +142,7 @@ namespace SimpleGraphGenerator.ViewModels
         public RelayCommand GenerateGraphCommand { get; private set; }
         public RelayCommand RerollVertexesLocationsCommand { get; private set; }
         public RelayCommand SpaceVertexesEvenlyCommand { get; private set; }
+        public RelayCommand ColorShortestPathCommand { get; private set; }
         #endregion
 
         #region command handlers
@@ -156,7 +158,7 @@ namespace SimpleGraphGenerator.ViewModels
             EdgesAmount = _myScene.DrawNewGraph((double)probability, (int)vertexesAmount);
 
             IsLoaded = true;
-            IsGraphConnected = true;
+            IsGraphConnected = _myScene.IsGraphConnected();
             for (int i = 0; i < vertexesAmount; i++)
                 VertexesNames.Add((i + 1).ToString());
 
@@ -171,6 +173,20 @@ namespace SimpleGraphGenerator.ViewModels
         void SpaceVertexesEvenlyCommandHandler(object obj)
         {
             _myScene.SpaceVertexesEvenly();
+        }
+
+        void ColorShortestPathCommandHandler(object paramsArray)
+        {
+            var values = (object[])paramsArray;
+
+            if (values[0] == null || values[1] == null) return;
+
+            if ((string)values[0] == "" || (string)values[1] == "") return;
+
+            int beg = Convert.ToInt32(values[0]);
+            int end = Convert.ToInt32(values[1]);
+
+            _myScene.ColorShortestPath(beg, end);
         }
 
         #endregion

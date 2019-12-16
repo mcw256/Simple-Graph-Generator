@@ -1,4 +1,5 @@
 ﻿using SimpleGraphGenerator.BusinessLogic;
+using SimpleGraphGenerator.BusinessLogic.Algorithms;
 using SimpleGraphGenerator.Views.SceneUtils;
 using System;
 using System.Collections.Generic;
@@ -115,6 +116,27 @@ namespace SimpleGraphGenerator.Views
             foreach (var item in _vertexes)
                 this.Children.Add(item);
 
+        }
+
+        public void ColorShortestPath(int beg, int end)
+        {
+            if (beg == end) return;
+
+            var q = new DijkstraShortestPath(_adjMatirx);
+            var list = q.ShortestPath(beg, end);
+            foreach (var item in list)
+            {
+                var edge = _edges.First(x => x.Name == $"v{item.X+1}to{item.Y+1}" || x.Name == $"v{item.Y+1}to{item.X+1}");
+                edge.Tag = -1;
+                edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#b700ff"));
+            }
+        }
+
+        public bool IsGraphConnected()
+        {
+            var q = new ConnectivityChecker(_adjMatirx);
+
+            return q.IsConnected();
         }
 
         #endregion

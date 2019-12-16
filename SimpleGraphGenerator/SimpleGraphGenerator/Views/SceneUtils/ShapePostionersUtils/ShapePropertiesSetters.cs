@@ -74,6 +74,10 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
                     edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1B4F72"));
                     break;
 
+                default:
+                    break;
+
+
             }
             edge.StrokeThickness = 3;
             edge.Opacity = 0.85;

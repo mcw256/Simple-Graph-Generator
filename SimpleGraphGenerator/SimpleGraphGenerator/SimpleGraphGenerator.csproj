@@ -55,6 +55,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLogic\AdjacentMatrix.cs" />
+    <Compile Include="BusinessLogic\Algorithms\ConnectivityChecker.cs" />
+    <Compile Include="BusinessLogic\Algorithms\DijkstraShortestPath.cs" />
     <Compile Include="Views\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Views\Converters\ManyToOneCommandParametersConverter.cs" />
     <Compile Include="Views\Converters\ProbabilityDoubleToStringConverter.cs" />
