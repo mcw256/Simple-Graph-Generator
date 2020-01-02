@@ -37,11 +37,5 @@ namespace SimpleGraphGenerator.Views.SceneUtils
 
             return result; 
         }
-
-
-       
-
     }
-
-
 }

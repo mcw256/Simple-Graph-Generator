@@ -20,18 +20,21 @@ namespace SimpleGraphGenerator.Views
 {
     class Scene : Canvas
     {
+        #region private fields
         int[,] _adjMatirx;
         List<Ellipse> _settingElls;
         List<Vertex> _vertexes;
         List<Line> _edges;
+        #endregion private fields
 
-
+        #region constructors
         public Scene()
         {
             this.Width = 750;
             this.Height = 750;
             this.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ecf4ef"));
         }
+        #endregion contructors
 
         #region public methods
         /// <summary>

@@ -29,7 +29,7 @@ namespace SimpleGraphGenerator.ViewModels
         }
         #endregion
 
-        #region fields
+        #region private fields
         Scene _myScene;
         #endregion
 
@@ -199,7 +199,6 @@ namespace SimpleGraphGenerator.ViewModels
         }
 
         #endregion
-
 
     }
 }

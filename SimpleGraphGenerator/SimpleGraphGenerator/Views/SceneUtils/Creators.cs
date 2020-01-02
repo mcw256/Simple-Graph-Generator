@@ -40,6 +40,10 @@ namespace SimpleGraphGenerator.Views.SceneUtils
             return result;
         }
 
+        /// <summary>
+        /// Creates 2 ellipses, that will be used as background(setting)
+        /// </summary>
+        /// <returns></returns>
         public static List<Ellipse> CreateSettingElls()
         {
             var result = new List<Ellipse>();

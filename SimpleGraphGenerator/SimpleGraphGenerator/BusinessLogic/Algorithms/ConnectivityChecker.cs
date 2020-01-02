@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace SimpleGraphGenerator.BusinessLogic.Algorithms
 {
 
+    /// <summary>
+    /// Input - constructor parameter, Output - IsConnected() method
+    /// </summary>
     class ConnectivityChecker
     {
         int[,] _adjMatrix;

@@ -10,8 +10,17 @@ using System.Windows.Shapes;
 
 namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
 {
+    /// <summary>
+    /// Contains methods, for setting properties of Shapes
+    /// </summary>
     static class ShapesSetters
     {
+        /// <summary>
+        /// Sets background ellipse width, height, stroek, and opacity
+        /// </summary>
+        /// <param name="setEll"></param>
+        /// <param name="leftX"></param>
+        /// <param name="bottomY"></param>
         public static void SetSettingEllProperties(Ellipse setEll, int leftX, int bottomY)
         {
             setEll.Width = 400;
@@ -24,18 +33,31 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
             Canvas.SetBottom(setEll, bottomY);
         }
 
+        /// <summary>
+        /// Sets Vertex style, content, name, x, y
+        /// </summary>
+        /// <param name="vertex"></param>
+        /// <param name="leftX"></param>
+        /// <param name="bottomY"></param>
+        /// <param name="name"></param>
         public static void SetVertexProperties(Vertex vertex, int leftX, int bottomY, string name)
         {
             vertex.Style = Application.Current.FindResource("Vertex") as Style;
             vertex.Content = name;
             vertex.Name = $"v{name}";
 
-
-
             Canvas.SetLeft(vertex, leftX);
             Canvas.SetBottom(vertex, bottomY);
         }
 
+        /// <summary>
+        /// Sets Edge coords
+        /// </summary>
+        /// <param name="edge"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
         public static void SetEdgeProperties(Line edge, int x1, int y1, int x2, int y2)
         {
             edge.X1 = x1;
@@ -48,9 +70,13 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
 
             edge.StrokeThickness = 3;
             edge.Opacity = 0.85;
-
         }
 
+        /// <summary>
+        /// Resets Edge Colors, by changing its Tag property
+        /// </summary>
+        /// <param name="adjMatrix"></param>
+        /// <param name="edges"></param>
         public static void ResetEdgesStrokes(int[,] adjMatrix, List<Line> edges)
         {
             for (int i = 0; i < adjMatrix.GetLength(0); i++)
@@ -68,12 +94,16 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
 
         }
 
+        /// <summary>
+        /// Sets edge color, using info contained in its tag. 7 - most light, most far away. 1 - darker, closer
+        /// </summary>
+        /// <param name="edge"></param>
         private static void SetEdgeColorFromTag(Line edge)
         {
             switch (edge.Tag)
             {
                 case 7:
-                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#85C1E9 "));
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#85C1E9 ")); // lighty - far away
                     break;
 
                 case 6:
@@ -97,7 +127,7 @@ namespace SimpleGraphGenerator.Views.SceneUtils.ShapePositionersUtils
                     break;
 
                 case 1:
-                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1B4F72"));
+                    edge.Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1B4F72")); // dark - close
                     break;
 
                 default:

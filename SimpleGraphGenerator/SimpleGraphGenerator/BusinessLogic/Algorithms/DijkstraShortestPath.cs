@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace SimpleGraphGenerator.BusinessLogic.Algorithms
 {
+    /// <summary>
+    /// Input - contrcutor parameter, Output - ShortestPath() method
+    /// </summary>
     class DijkstraShortestPath
     {
         class Node
@@ -82,9 +85,6 @@ namespace SimpleGraphGenerator.BusinessLogic.Algorithms
                 _nodes = _nodes.OrderBy(x => x.Distance).ToList();
                 Search(_nodes[0].Id);
             }
-
         }
-
-
     }
 }
